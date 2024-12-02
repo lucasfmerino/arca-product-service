@@ -114,6 +114,13 @@
 			<version>2.6.0</version>
 		</dependency>
 
+		<!-- EUREKA CLIENT (Spring Cloud Starter Netflix Eureka Client) -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<version>4.1.4</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
