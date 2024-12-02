@@ -34,7 +34,7 @@ public class Product
 
     @ElementCollection(targetClass = ProductCategory.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "product_categories", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "product_categories", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "category")
     private List<ProductCategory> categories;
 

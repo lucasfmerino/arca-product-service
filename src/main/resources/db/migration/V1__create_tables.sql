@@ -2,8 +2,8 @@ CREATE TABLE t_product (
     id BINARY(16) NOT NULL,
     name VARCHAR(100) UNIQUE NOT NULL,
     description VARCHAR(255) UNIQUE NOT NULL,
-    price DECIMAL(10,2)
-    quantity INTEGER,
+    price DECIMAL(10,2),
+    quantity INT,
     is_active BOOLEAN,
     created_at DATETIME,
     updated_at DATETIME,
