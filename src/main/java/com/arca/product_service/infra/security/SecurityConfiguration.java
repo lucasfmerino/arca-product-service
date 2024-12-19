@@ -40,6 +40,7 @@ public class SecurityConfiguration
 
                     // PRODUCT
                     authorize.requestMatchers(HttpMethod.POST, "/api/products/**").hasAnyRole("WEB147", "WEB136");
+                    authorize.requestMatchers(HttpMethod.PUT, "/api/products/order").authenticated();
                     authorize.requestMatchers(HttpMethod.PUT, "/api/products/**").hasAnyRole("WEB147", "WEB136");
                     authorize.requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAnyRole("WEB147", "WEB136");
                     authorize.requestMatchers(HttpMethod.GET, "/api/products/**").authenticated();

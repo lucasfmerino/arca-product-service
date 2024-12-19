@@ -1,5 +1,6 @@
 package com.arca.product_service.modules.product.controller;
 
+import com.arca.product_service.modules.product.domain.dto.ClientProductUpdateDto;
 import com.arca.product_service.modules.product.domain.dto.ProductDisplayDto;
 import com.arca.product_service.modules.product.domain.dto.ProductRegistrationDto;
 import com.arca.product_service.modules.product.domain.dto.ProductUpdateDto;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -39,11 +41,11 @@ public class ProductController
             UriComponentsBuilder uriComponentsBuilder
     )
     {
-        ProductDisplayDto newProjectDisplayDto = productService.create(productRegistrationDto);
+        ProductDisplayDto newProductDisplayDto = productService.create(productRegistrationDto);
 
-        URI uri = uriComponentsBuilder.path("/api/products/{id}").buildAndExpand(newProjectDisplayDto.id()).toUri();
+        URI uri = uriComponentsBuilder.path("/api/products/{id}").buildAndExpand(newProductDisplayDto.id()).toUri();
 
-        return ResponseEntity.created(uri).body(newProjectDisplayDto);
+        return ResponseEntity.created(uri).body(newProductDisplayDto);
     }
 
 
@@ -95,6 +97,17 @@ public class ProductController
     public ResponseEntity<ProductDisplayDto> update(@RequestBody @Valid ProductUpdateDto productUpdateDto)
     {
         return ResponseEntity.ok(productService.update(productUpdateDto));
+    }
+
+    /*
+     * UPDATE PRODUCT BY ORDER
+     *
+     */
+    @PutMapping("/order")
+    @Transactional
+    public ResponseEntity<List<ProductDisplayDto>> updateByOrder(@RequestBody @Valid List<ClientProductUpdateDto> clientProductUpdateDtoList)
+    {
+        return ResponseEntity.ok(productService.updateByOrder(clientProductUpdateDtoList));
     }
 
 }

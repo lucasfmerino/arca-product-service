@@ -1,5 +1,6 @@
 package com.arca.product_service.modules.product.service;
 
+import com.arca.product_service.modules.product.domain.dto.ClientProductUpdateDto;
 import com.arca.product_service.modules.product.domain.dto.ProductDisplayDto;
 import com.arca.product_service.modules.product.domain.dto.ProductRegistrationDto;
 import com.arca.product_service.modules.product.domain.dto.ProductUpdateDto;
@@ -12,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -134,6 +137,38 @@ public class ProductService
         {
             throw new ProductNotFoundException("Product not found!");
         }
+    }
+
+
+    /*
+     * UPDATE PRODUCT BY ORDER
+     *
+     */
+    public List<ProductDisplayDto> updateByOrder(List<ClientProductUpdateDto> listToUpdate)
+    {
+        List<ProductDisplayDto> updatedList = new ArrayList<>();
+
+        for(ClientProductUpdateDto product : listToUpdate) {
+            Optional<Product> productOptional = productRepository.findById(product.productId());
+
+            if (productOptional.isPresent())
+            {
+                Product productToUpdate = productOptional.get();
+
+                if (product.quantity() != null)
+                {
+
+                    productToUpdate.setQuantity(productToUpdate.getQuantity() - product.quantity());
+                }
+
+                updatedList.add(new ProductDisplayDto(productRepository.save(productToUpdate)));
+            }
+            else
+            {
+                throw new ProductNotFoundException("Product not found!");
+            }
+        }
+        return updatedList;
     }
 
 }
